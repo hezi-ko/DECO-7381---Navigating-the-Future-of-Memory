@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>AI Smoke Test</h1>
+    <textarea id="prompt" rows="4" cols="60" placeholder="Type a prompt..."></textarea>
+    <br /><br />
+    <button id="go">Ask</button>
+    <pre id="out" style="white-space: pre-wrap; word-break: break-word;"></pre>
+
+  <script>
+    document.getElementById('go').onclick = async () => {
+      const prompt = document.getElementById('prompt').value;
+
+      const res = await fetch('http://localhost:3001/api/ai/say', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+
+      document.getElementById('out').textContent = JSON.stringify(data, null, 2);
+    };
+  </script>    
+
+
+</body>
+</html> 
